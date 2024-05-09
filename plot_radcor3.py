@@ -1,6 +1,7 @@
 # import matplotlib
 # matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
+from matplotlib.transforms import Bbox
 import math as m
 import numpy as np
 
@@ -22,6 +23,10 @@ AparLabel = "_Apar"
 AparLabel2 = r'$\mathrm{A}_{\parallel}^{^{3}He}$'
 AperpLabel = "_Aperp"
 AperpLabel2 = r'$\mathrm{A}_{\perp}^{^{3}He}$'
+
+outputFileFormat = "png"
+outputFileExtension = "."+outputFileFormat
+
 
 def q2_calc(Ep, theta):
     return 2*Ebeam*Ep*(1 - m.cos(theta*deg2rad))
@@ -45,16 +50,16 @@ def main():
         print()
 
         # Get the input filename from the user
-        inUnpolFileName = "CAnalyzer-master/example/output/radiated_model_" + thetaStr + "deg" + unpolLabel + ".dat"
-        inLongFileName = "CAnalyzer-master/example/output/radiated_model_" + thetaStr + "deg" + longLabel + ".dat"
-        inTransFileName = "CAnalyzer-master/example/output/radiated_model_" + thetaStr + "deg" + transLabel + ".dat"
-        outUnpolFileName = "Plots/" + thetaStr + "deg" + unpolLabel + ".png"
-        outLongFileName = "Plots/" + thetaStr + "deg" + longLabel + ".png"
-        outTransFileName = "Plots/" + thetaStr + "deg" + transLabel + ".png"
-        outAparFileName = "Plots/" + thetaStr + "deg" + AparLabel + ".png"
-        outAperpFileName = "Plots/" + thetaStr + "deg" + AperpLabel + ".png"
-        outApardiffFileName = "Plots/" + thetaStr + "deg" + AparLabel + "diff.png"
-        outAperpdiffFileName = "Plots/" + thetaStr + "deg" + AperpLabel + "diff.png"
+        inUnpolFileName = "Radiated Data/Model_No_Smearing/radiated_model_" + thetaStr + "deg" + unpolLabel + ".dat"
+        inLongFileName = "Radiated Data/Model_No_Smearing/radiated_model_" + thetaStr + "deg" + longLabel + ".dat"
+        inTransFileName = "Radiated Data/Model_No_Smearing/radiated_model_" + thetaStr + "deg" + transLabel + ".dat"
+        outUnpolFileName = "Plots/" + thetaStr + "deg" + unpolLabel + outputFileExtension
+        outLongFileName = "Plots/" + thetaStr + "deg" + longLabel + outputFileExtension
+        outTransFileName = "Plots/" + thetaStr + "deg" + transLabel + outputFileExtension
+        outAparFileName = "Plots/" + thetaStr + "deg" + AparLabel + outputFileExtension
+        outAperpFileName = "Plots/" + thetaStr + "deg" + AperpLabel + outputFileExtension
+        outApardiffFileName = "Plots/" + thetaStr + "deg" + AparLabel + "diff" + outputFileExtension
+        outAperpdiffFileName = "Plots/" + thetaStr + "deg" + AperpLabel + "diff" + outputFileExtension
 
         # Read data from the input file
         try:
@@ -165,6 +170,7 @@ def main():
             if (dataLong[i][3] == 0): continue
             tempEp = Ebeam - (dataLong[i][1] + dataUnpol[i][1])/2000
             tempx = x_calc(tempEp, theta)
+            if (tempx > 1): continue
             Apar_rad[0].append(tempx)
             Apar_born[0].append(tempx)
             Apar_rad[1].append(dataLong[i][2]/(2.0*dataUnpol[i][2]))
@@ -176,6 +182,7 @@ def main():
             if (dataTrans[i][3] == 0): continue
             tempEp = Ebeam - (dataTrans[i][1] + dataUnpol[i][1])/2000
             tempx = x_calc(tempEp, theta)
+            if (tempx > 1): continue
             Aperp_rad[0].append(tempx)
             Aperp_born[0].append(tempx)
             Aperp_rad[1].append(dataTrans[i][2]/(2.0*dataUnpol[i][2]))
@@ -191,6 +198,8 @@ def main():
 
         plt.figure(figsize=(10, 5))  # Adjust width and height as needed
 
+        bbox_inches = 'tight' #Bbox.from_extents(0.1,0.1,0.9,0.9)
+
         # Plot the data
         plt.plot(xsradUnpol[0], xsradUnpol[1], color="blue", label='XS rad')
         # plt.plot(xsbornUnpol[0], xsbornUnpol[1], color="blue", label='XS born', linestyle='--')
@@ -204,7 +213,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outUnpolFileName, format='png')
+        plt.savefig(outUnpolFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outUnpolFileName)
 
         plt.clf()
@@ -222,7 +231,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outLongFileName, format='png')
+        plt.savefig(outLongFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outLongFileName)
 
         plt.clf()
@@ -240,7 +249,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outTransFileName, format='png')
+        plt.savefig(outTransFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outTransFileName)
 
         plt.clf()
@@ -259,7 +268,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outAparFileName, format='png')
+        plt.savefig(outAparFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outAparFileName)
 
         plt.clf()
@@ -278,7 +287,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outAperpFileName, format='png')
+        plt.savefig(outAperpFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outAperpFileName)
 
         plt.clf()
@@ -297,7 +306,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outApardiffFileName, format='png')
+        plt.savefig(outApardiffFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outApardiffFileName)
 
         plt.clf()
@@ -316,7 +325,7 @@ def main():
         plt.legend()
         # plt.show()
         plt.tight_layout()
-        plt.savefig(outAperpdiffFileName, format='png')
+        plt.savefig(outAperpdiffFileName, format=outputFileFormat, bbox_inches=bbox_inches)
         print("Plot saved to " + outAperpdiffFileName)
 
         plt.clf()
