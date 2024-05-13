@@ -129,7 +129,7 @@ void refine_nu_bin(CHe3Elas &model, std::vector<CElasTails::NuPoint> &container,
     container.emplace_back(nu, model.GetRadXS(Es, Es - nu, theta, rlin, rlout));
     const CElasTails::NuPoint &center = container.back();
 
-    if(std::abs(1. - 2.*center.tail/(beg.tail + end.tail)) > prec)
+    if(std::abs(1. - 2.*center.tail/(beg.tail + end.tail)) > prec && std::abs(beg.nu - end.nu) > 1)
     {
         /*
         std::cout << container.size() << ", "
