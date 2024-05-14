@@ -16,9 +16,17 @@ void getDataPoints(map<double, vector<Point>> &dataPoints, vector<double> &q2_ke
     q2_keys.clear();
     dataPoints.clear();
 
-    string jamFileName = "table_3He_JAM_smeared_no_QE_ipol1IA14_SF23_AC11.csv";
-    // string jamFileName = "table_3He_JAM_smeared_inelastic_plus_QE_ipol1IA14_SF23_AC11.csv";
+    // --- Uncomment the line below and comment the following line to interpolate on inelastic only table ---
+    // string jamFileName = "table_3He_JAM_smeared_no_QE_ipol1IA14_SF23_AC11.csv";
+    // --- Uncomment the line below and comment the line above to interpolate on inelastic + QE table ---
+    string jamFileName = "table_3He_JAM_smeared_inelastic_plus_QE_ipol1IA14_SF23_AC11.csv";
     ifstream jamFile(jamFileName);
+
+    if (!jamFile.is_open()) {
+        cout << "Error: Unable to open input file." << endl;
+        return;
+    }
+
     string line;
     while (getline(jamFile, line)) {
         stringstream ss(line);
@@ -26,16 +34,16 @@ void getDataPoints(map<double, vector<Point>> &dataPoints, vector<double> &q2_ke
         char comma;
         double other;
 
-        // used for "table_3He_JAM_smeared_no_QE_ipol1IA14_SF23_AC11.csv"
-        ss >> pt.q2 >> comma >> pt.x;
-        for (int i = 0; i < 10; i++) ss >> comma >> other;
-        ss >> comma >> pt.F2;
-        for (int i = 0; i < 3; i++) ss >> comma >> other;
-        ss >> comma >> pt.g1 >> comma >> pt.g2 >> comma >> pt.F1;
+        // // used for "table_3He_JAM_smeared_no_QE_ipol1IA14_SF23_AC11.csv"
+        // ss >> pt.q2 >> comma >> pt.x;
+        // for (int i = 0; i < 10; i++) ss >> comma >> other;
+        // ss >> comma >> pt.F2;
+        // for (int i = 0; i < 3; i++) ss >> comma >> other;
+        // ss >> comma >> pt.g1 >> comma >> pt.g2 >> comma >> pt.F1;
         
-        // // used for "table_3He_JAM_smeared_inelastic_plus_QE_ipol1IA14_SF23_AC11.csv"
-        // ss >> pt.q2 >> comma >> pt.x >> comma >> pt.F2 >> comma >> other >> comma >> pt.F1 >> comma;
-        // ss >> pt.g1 >> comma >> pt.g2;
+        // used for "table_3He_JAM_smeared_inelastic_plus_QE_ipol1IA14_SF23_AC11.csv"
+        ss >> pt.q2 >> comma >> pt.x >> comma >> pt.F2 >> comma >> other >> comma >> pt.F1 >> comma;
+        ss >> pt.g1 >> comma >> pt.g2;
 
         dataPoints[pt.q2].push_back(pt);
         bool q2inkeys = false;

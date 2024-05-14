@@ -255,6 +255,13 @@ int main() {
                 // if (Q2 >= q2min && Q2 <= q2max && x <= dataPoints[q2low][dataPoints[q2low].size()-1].x && w >= Mp) {
                 if (Q2 >= q2min && Q2 <= q2max && x <= dataPoints[q2low][dataPoints[q2low].size()-1].x) {
                     pt = interpolate2DLinear(x, Q2, dataPoints, q2_keys);
+                    // --- Uncomment only the first 2 lines to get - variations ---
+                    // --- Uncomment only the last 2 lines to get + variations ---
+                    // --- Keep all 4 lines commented to get no variations ---
+                    // if (theta!=theta_values[2]) pt.g1 -= 0.05*pt.F1;
+                    // else pt.g1 -= 0.1*pt.F1;
+                    // if (theta!=theta_values[2]) pt.g1 += 0.05*pt.F1;
+                    // else pt.g1 += 0.1*pt.F1;
                     xsUnpol = xs_calc(E, Ep, theta, pt.F1, pt.F2);
                     xsLong = xsLong_calc(E, Ep, theta, Q2, x, pt.g1, pt.g2);
                     xsTrans = xsTrans_calc(E, Ep, theta, Q2, pt.g1, pt.g2);

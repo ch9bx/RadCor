@@ -93,7 +93,7 @@ CC = g++
 CFLAGS = -ffloat-store
 LDFLAGS = -lgfortran
 
-all: xs_gen_dis6 xs_gen_dis6_pol xs_gen_jam
+all: xs_gen_dis6 xs_gen_dis6_pol xs_gen_jam xs_gen_jam_test xs_gen_jam_g1var
 
 xs_gen_dis6: xs_gen_dis6.cpp strufunc_f1f221_dis6.cpp strufunc_f1f221_dis6.f F1F2IN21_v1.0.f NextUn.f f2allm.f strufunc_common_cmp.f
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
@@ -104,7 +104,15 @@ xs_gen_dis6_pol: xs_gen_dis6_pol.cpp strufunc_f1f221_dis6.cpp strufunc_f1f221_di
 xs_gen_jam: xs_gen_jam.cpp strufunc_jam.cpp
 	$(CC) $(CFLAGS) -o $@ $^
 
+xs_gen_jam_test: xs_gen_jam_test.cpp strufunc_jam.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
+xs_gen_jam_g1var: xs_gen_jam_g1var.cpp strufunc_jam.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
 clean:
 	rm -f xs_gen_dis6
 	rm -f xs_gen_dis6_pol
 	rm -f xs_gen_jam
+	rm -f xs_gen_jam_test
+	rm -f xs_gen_jam_g1var
