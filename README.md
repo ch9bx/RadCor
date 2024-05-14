@@ -124,3 +124,19 @@ then g2 is calculated using a numerical integration using g1
 ### vi) The output files are also copied directly into the /CAnalyzer-master/example/data directory
 ### vii) Note: This will overwrite the previous model input model files
 ## c) The only difference here is the structure functions used; using the radiate() function and the python plotting code should work exactly the same
+# 5) JAM model Inelastic vs. JAM model Inelastic + QE
+## a) Cross Section Generation
+### i) Everything here is the same as in section 4.a except for how to switch between the JAM Inelastic table and the JAM Inelastic + QE table
+### ii) To change the table, enter the "YoniCode_Retry_4Dave_2/Carter/" directory and go to lines 19-22 in "strufunc_jam.cpp". Commenting line 20 and uncommenting line 22 uses the JAM Inelastic + QE table whereas commenting line 22 and uncommenting line 20 uses the JAM Inelastic table. After any changes are made to the file, one must recompile by typing 'make' in the "YoniCode_Retry_4Dave_2/Carter/" directory.
+## b) Running the code
+### i) Everything is the same as section 4.b
+## c) Plotting
+### i) The plotting script used for this model comparison is "plot_radcor4.py", which plots data from the "Radiated Data/Model_IQE_Smearing/" directory and the "Radiated Data/Model_Inelastic_Smearing/" directory
+# 6) g1 Variations Model
+## a) Cross Section Generation
+### i) Everything here is the same as in section 4.a except for how to switch between +/- variations and no variation.
+### ii) To change the variation being performed on g1, enter the "YoniCode_Retry_4Dave_2/Carter/" directory and go to lines 258-264 in "xs_gen_jam_g1var.cpp". Commenting out lines 261-264 will result in no variations to g1/F1, uncommenting lines 261-262 and commenting out lines 263-264 will result in negative variations to g1/F1, and uncommenting lines 263-264 and commenting out lines 261-262 will result in positive variations to g1/F1. After any changes are made to the file, one must recompile by typing 'make' in the "YoniCode_Retry_4Dave_2/Carter/" directory.
+## b) Running the code
+### i) Everything is the same as section 4.b
+## c) Plotting
+### i) The plotting script used for this model comparison is "plot_radcor5.py", which plots data from the "Radiated Data/Model_IQE_Smearing/" directory, the "Radiated Data/Model_IQE_Smearing_g1-F1/" directory, and the "Radiated Data/Model_IQE_Smearing_g1+F1/" directory.
