@@ -111,7 +111,7 @@ then g2 is calculated using a numerical integration using g1
 ### ii) Perpendicular
 ![Plot of Perpendicular Asymmetry for 30deg](ReadMe_Images/Aperp_30deg.png)
 # 4) Other Model Input (JAM)
-## Note: The data tables used for this model were too large to be uploaded into this github repo. The data tables needed can be found in this ![google drive](https://drive.google.com/drive/folders/1GDkbCiES7FjazlqDUnVel9ishaJrheMt). The files needed are named "table_3He_JAM_smeared_no_QE_ipol1IA14_SF23_AC11.csv" and "table_3He_JAM_smeared_inelastic_plus_QE_ipol1IA14_SF23_AC11.csv". These csv files should be placed in the "RadCor/YoniCode_Retry_4Dave_2/Carter/" directory for the code to access it properly.
+## Note: The data tables used for this model were too large to be uploaded into this github repo. The data tables needed can be found in this [google drive](https://drive.google.com/drive/folders/1GDkbCiES7FjazlqDUnVel9ishaJrheMt). The files needed are named "table_3He_JAM_smeared_no_QE_ipol1IA14_SF23_AC11.csv" and "table_3He_JAM_smeared_inelastic_plus_QE_ipol1IA14_SF23_AC11.csv". These csv files should be placed in the "RadCor/YoniCode_Retry_4Dave_2/Carter/" directory for the code to access it properly.
 ## a) Cross Section Generation
 ### i) The cross sections are calculated using the same equations as the first model input
 ### ii) Only difference is using bilinear interpolation on a structure function table seen in the file strufunc_jam.cpp
