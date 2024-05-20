@@ -53,7 +53,7 @@ class AsymmDiff:
             self.para = ''
             self.paraerr = ''
         else:
-            self.para = asymm1.para - asymm1.para
+            self.para = asymm1.para - asymm2.para
             self.paraerr = diff_errcalc(asymm1.paraerr,asymm2.paraerr)
         if (asymm1.perp == '' or asymm2.para == ''):
             self.perp = ''
